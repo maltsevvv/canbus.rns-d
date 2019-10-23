@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="service.canbus.rns-d" name="CAN BUS RNS-D" provider-name="Maltsev" version=".0.0">
+	<requires>
+		<import addon="xbmc.python" version="2.25.0"/>
+	</requires>
+	<extension point="xbmc.service" library="addon.py" start="login">
+		<provides>executable</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<platform>all</platform>
+		<summary lang="en_US">Kodi control via RNS-D over CANBUS</summary>
+		<summary lang="ru_RU">Пульт дистанционного управления для Kodi Media Center по CAN ШИНЕ</summary>
+		<description lang="en_US">Remote control for Kodi Media Center. The control takes place using the buttons on the RNS-D via the CAN bus. Mandatory presence of a standard TV tuner, Raspberry PI and CAN model MCP2515. A great alternative to a remote control that needs batteries. </description>
+		<description lang="ru_RU">Пульт дистанционного управления для Kodi Media Center. Управление происходит, при помощи кнопок на RNS-D по CAN Шине. Обязательно наличие Штатного ТВ-тюнера, Raspberry PI и  CAN модля MCP2515. Отличная альтернатива пульту ДУ, которуму необходимы батарейки.</description>
+		<assets>
+			<icon>resources/icon.png</icon>
+		</assets>
+	</extension>
+</addon>
