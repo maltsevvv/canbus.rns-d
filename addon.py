@@ -26,70 +26,16 @@ def dumpcan():
 			if canid == ("464"):
 #
 				if msg[3:] == ("20 02 02 00"): #Up 
-					windowid = xbmcgui.getCurrentWindowId()
-					if (windowid == 12006): # MusicVisualisation.xml
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Up","id":1}')
-					elif (windowid == 12005): # VideoFullScreen.xml
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Up","id":1}')
-					else:
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Up","id":1}')
+					xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Up","id":1}')
 				if msg[3:] == ("20 02 20 00"): #Down
-					windowid = xbmcgui.getCurrentWindowId()
-					if (windowid == 12006): # MusicVisualisation.xml
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Down","id":1}')
-					elif (windowid == 12005): # VideoFullScreen.xml
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Down","id":1}')
-					else:
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Down","id":1}')
+					xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Down","id":1}')
 				if msg[3:] == ("20 02 01 00"): #Left
-					windowid = xbmcgui.getCurrentWindowId()
-					if (windowid == 12006): # MusicVisualisation.xml
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Left","id":1}')
-					elif (windowid == 12005): # VideoFullScreen.xml
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Left","id":1}')
-					else:
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Left","id":1}')
+					xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Left","id":1}')
 				if msg[3:] == ("20 02 03 00"): #Right
-					windowid = xbmcgui.getCurrentWindowId()
-					if (windowid == 12006): # MusicVisualisation.xml
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Right","id":1}')
-					elif (windowid == 12005): # VideoFullScreen.xml
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Right","id":1}')
-					else:
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Right","id":1}')
+					xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Right","id":1}')
 				if msg[3:] == ("20 02 04 00"): #OK (Key "AS")
-					windowid = xbmcgui.getCurrentWindowId()
-					if (windowid == 12006): # MusicVisualisation.xml
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Select","id":1}')
-					elif (windowid == 12005): # VideoFullScreen.xml
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Select","id":1}')
-					else:
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Select","id":1}')
-#### Right Side #### 
-				if msg[3:] == ("20 02 00 50"): #Return
-					windowid = xbmcgui.getCurrentWindowId()
-					if (windowid == 12006): # MusicVisualisation.xml
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Back","id":1}')
-					elif (windowid == 12005): # VideoFullScreen.xml
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Back","id":1}')
-					else:
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Back","id":1}')
-				if msg[3:] == ("20 02 00 03"): #Context menu(Mode)
-					windowid = xbmcgui.getCurrentWindowId()
-					if (windowid == 12006): # MusicVisualisation.xml
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Player.Stop","params":{"playerid":0},"id":1}')
-					elif (windowid == 12005): # VideoFullScreen.xml
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Player.Stop","params":{"playerid":1},"id":1}')
-					else:
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.ContextMenu","id":1}')
-				if msg[3:] == ("20 02 00 05"): #OSD Menu  (Key "encoder push")
-					windowid = xbmcgui.getCurrentWindowId()
-					if (windowid == 12006): # MusicVisualisation.xml
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.ShowOSD","id":1}')
-					elif (windowid == 12005): # VideoFullScreen.xml
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.ShowOSD","id":1}')
-					else:
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Select","id":1}')
+					xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Select","id":1}')
+#### Right Side 
 				if msg[3:] == ("20 02 00 20"): #Up (Key "-")
 					windowid = xbmcgui.getCurrentWindowId()
 					if (windowid == 12006): # MusicVisualisation.xml
@@ -106,21 +52,21 @@ def dumpcan():
 						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Player.Seek","params":{"playerid":1,"value":"bigbackward"},"id":1}')
 					else:
 						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Down","id":1}')
+				if msg[3:] == ("20 02 00 50"): #Return
+					xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Back","id":1}')
+				if msg[3:] == ("20 02 00 03"): #Context menu(Mode)
+					windowid = xbmcgui.getCurrentWindowId()
+					if (windowid == 12006): # MusicVisualisation.xml
+						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Player.Stop","params":{"playerid":0},"id":1}')
+					elif (windowid == 12005): # VideoFullScreen.xml
+						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Player.Stop","params":{"playerid":1},"id":1}')
+					else:
+						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.ContextMenu","id":1}')
+				if msg[3:] == ("20 02 00 05"): #OSD Menu  (Key "encoder push")
+					xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.ShowOSD","id":1}')
 				if msg[3:] == ("20 01 00 ff"): #Encoder Up
-					windowid = xbmcgui.getCurrentWindowId()
-					if (windowid == 12006): # MusicVisualisation.xml
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Up","id":1}')
-					elif (windowid == 12005): # VideoFullScreen.xml
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Up","id":1}')
-					else:
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Up","id":1}')
+					xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Up","id":1}')
 				if msg[3:] == ("20 01 01 ff"): #Down
-					windowid = xbmcgui.getCurrentWindowId()
-					if (windowid == 12006): # MusicVisualisation.xml
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Down","id":1}')
-					elif (windowid == 12005): # VideoFullScreen.xml
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Down","id":1}')
-					else:
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Down","id":1}')
+					xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Down","id":1}')
 #
 dumpcan()
