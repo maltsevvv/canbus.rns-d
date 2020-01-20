@@ -24,7 +24,6 @@ def dumpcan():
 			canid = msg[26:29]
 			msg = msg[48:99]
 			if canid == ("464"):
-#
 				if msg == ("20 02 02 00"): #Button Up - KODI Up 
 					xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Up","id":1}')
 				if msg == ("20 02 20 00"): #Button Down - KODI Down
@@ -38,7 +37,7 @@ def dumpcan():
  				if msg == ("20 02 00 50"): #Button Return - KODI Back
 					xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Back","id":1}')
 				if msg == ("20 02 00 05"): #Encoder Button Pressed - KODI OK
-					xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.ShowOSD","id":1}')
+					xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Select","id":1}')
 				if msg == ("20 01 00 ff"): #Right Encoder Rotation to Left - KODI UP
 					xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Up","id":1}')
 				if msg == ("20 01 01 ff"): #Right Encoder Rotation to Left - KODI Down
@@ -59,15 +58,12 @@ def dumpcan():
 						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Player.Seek","params":{"playerid":1,"value":"bigbackward"},"id":1}')
 					else:
 						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.Down","id":1}')
-				
-				if msg[3:] == ("20 02 00 03"): #Button Mode - KODI Context menu
+				if msg == ("20 02 00 03"): #Button Mode - KODI Context menu
 					windowid = xbmcgui.getCurrentWindowId()
 					if (windowid == 12006): # MusicVisualisation.xml
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Player.Stop","params":{"playerid":0},"id":1}')
+						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.ShowOSD","id":1}')
 					elif (windowid == 12005): # VideoFullScreen.xml
-						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Player.Stop","params":{"playerid":1},"id":1}')
+						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.ShowOSD","id":1}')
 					else:
 						xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Input.ContextMenu","id":1}')
-				
-#
 dumpcan()
