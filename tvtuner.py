@@ -1706,7 +1706,7 @@ def dumpcan():
                     bus = can.interface.Bus()
                     msg = can.Message(arbitration_id=0x264, data=[0xB0], extended_id=False)
                     bus.send(msg)
-#### Left Encoder Button Pressed #### 15 00 01
+#### Left Encoder Button Pressed #### 15 00 01 ## ON
                 if msg == ("10 00 01"): #Left Encoder Button Pressed
                     bus = can.interface.Bus()
                     msg = can.Message(arbitration_id=0x264, data=[0xB1], extended_id=False)
@@ -1771,7 +1771,7 @@ def dumpcan():
                     bus = can.interface.Bus()
                     msg = can.Message(arbitration_id=0x264, data=[0xB0], extended_id=False)
                     bus.send(msg)
-#### Left Encoder Button Pressed #### 15 00 02
+#### Left Encoder Button Pressed #### 15 00 02 ## OFF
                 if msg == ("10 00 02"): #Left Encoder Button Pressed
                     bus = can.interface.Bus()
                     msg = can.Message(arbitration_id=0x264, data=[0xB1], extended_id=False)
