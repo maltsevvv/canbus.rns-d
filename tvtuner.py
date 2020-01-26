@@ -1836,5 +1836,18 @@ def dumpcan():
                     bus = can.interface.Bus()
                     msg = can.Message(arbitration_id=0x264, data=[0xB0], extended_id=False)
                     bus.send(msg)
+            if canid == ("35e"):
+                if msg == ("01 01 12 38"):
+                    bus = can.interface.Bus()
+                    msg = can.Message(arbitration_id=0x264, data=[0xa0, 0x01, 0x00], extended_id=False)
+                    bus.send(msg)
+#### Power OFF ####
+#            if canid == ("35e"):
+                if msg == ("00 01 12 a0"): 
+                    os.system("sudo shutdown -h now")
+                if msg == ("00 01 12 2c"):
+                    os.system("sudo shutdown -h now")
+                if msg == ("00 01 12 38"):
+                    os.system("sudo shutdown -h now")
 
 dumpcan()
