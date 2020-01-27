@@ -1841,6 +1841,6 @@ def dumpcan():
                     os.system("sudo shutdown -h now")
                 if msg == ("00 01 12 38"): # cd-changer
                     os.system("sudo shutdown -h now")
-                if msg msg == ("00 01 12 2c"): #tvtuner
+                if msg == ("00 01 12 2c"): #tvtuner
                     os.system("sudo shutdown -h now")
 dumpcan()
