@@ -1836,11 +1836,11 @@ def dumpcan():
                     bus = can.interface.Bus()
                     msg = can.Message(arbitration_id=0x264, data=[0xB0], extended_id=False)
                     bus.send(msg)
-            elif canid == ("35e"): #POWER OFF
+            if canid == ("35e"): #POWER OFF
                 if msg == ("00 01 12 a0"):  #radio
                     os.system("sudo shutdown -h now")
-                elif msg == ("00 01 12 38"): # cd-changer
+                if msg == ("00 01 12 38"): # cd-changer
                     os.system("sudo shutdown -h now")
-                else msg == ("00 01 12 2c"): #tvtuner
+                if msg msg == ("00 01 12 2c"): #tvtuner
                     os.system("sudo shutdown -h now")
 dumpcan()
