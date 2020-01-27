@@ -1843,11 +1843,10 @@ def dumpcan():
                     bus.send(msg)
 #### Power OFF ####
 #            if canid == ("35e"):
-                if msg == ("00 01 12 a0"): 
+                if msg == ("00 01 12 a0"): # Power RADIO
                     os.system("sudo shutdown -h now")
-                if msg == ("00 01 12 2c"):
+                if msg == ("00 01 12 38"): #Power CD-CHANGER
                     os.system("sudo shutdown -h now")
-                if msg == ("00 01 12 38"):
+                if msg == ("00 01 12 2c"): # Power TV-TUNER
                     os.system("sudo shutdown -h now")
-
 dumpcan()
