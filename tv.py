@@ -1843,4 +1843,18 @@ def dumpcan():
                     os.system("sudo shutdown -h now")
                 if msg == ("00 01 12 2c"): #tvtuner
                     os.system("sudo shutdown -h now")
+#### Activate can bus rns-d ####                    
+                elif msg == ("01 01 12 2c"):
+                    bus = can.interface.Bus()
+                    msg = can.Message(arbitration_id=0x464, data=[0xa3, 0x00], extended_id=False)
+                    bus.send(msg)
+                elif msg == ("01 01 12 38"):
+                    bus = can.interface.Bus()
+                    msg = can.Message(arbitration_id=0x464, data=[0xa3, 0x00], extended_id=False)
+                    bus.send(msg)
+                elif msg == ("01 01 12 a0"):
+                    bus = can.interface.Bus()
+                    msg = can.Message(arbitration_id=0x464, data=[0xa3, 0x00], extended_id=False)
+                    bus.send(msg)
+
 dumpcan()
