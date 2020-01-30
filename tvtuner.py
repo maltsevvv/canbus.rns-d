@@ -1,4 +1,5 @@
-#!python
+#!/usr/bin/env python
+# coding: utf-8
 #pip install python-can==1.4.3
 from __future__ import print_function
 import time
@@ -22,7 +23,7 @@ def dumpcan():
             canid = msg[26:29]
             msg = msg[45:69]
             if canid == ("464"):
-#### Aktivate tv +tuner #############
+#### Aktivate tv-tuner #############
                 if msg == ("e0 01 00"):
                     bus = can.interface.Bus()
                     msg = can.Message(arbitration_id=0x264, data=[0xa0, 0x01, 0x00], extended_id=False)
@@ -1843,18 +1844,4 @@ def dumpcan():
                     os.system("sudo shutdown -h now")
                 if msg == ("00 01 12 2c"): #tvtuner
                     os.system("sudo shutdown -h now")
-#### Activate can bus rns-d ####                    
-#                elif msg == ("01 01 12 2c"):
-#                    bus = can.interface.Bus()
-#                    msg = can.Message(arbitration_id=0x464, data=[0xa3, 0x00], extended_id=False)
-#                    bus.send(msg)
-#                elif msg == ("01 01 12 38"):
-#                    bus = can.interface.Bus()
-#                    msg = can.Message(arbitration_id=0x464, data=[0xa3, 0x00], extended_id=False)
-#                    bus.send(msg)
-#                elif msg == ("01 01 12 a0"):
-#                    bus = can.interface.Bus()
-#                    msg = can.Message(arbitration_id=0x464, data=[0xa3, 0x00], extended_id=False)
-#                    bus.send(msg)
-
 dumpcan()
