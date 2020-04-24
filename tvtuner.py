@@ -1844,4 +1844,7 @@ def dumpcan():
                     os.system("sudo shutdown -h now")
                 if msg == ("00 01 12 2c"): #tvtuner
                     os.system("sudo shutdown -h now")
+             if canid == ("218"): #key disable
+                if msg == ("1e 01 02"):
+                    os.system("sudo shutdown -h now")
 dumpcan()
