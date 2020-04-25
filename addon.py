@@ -69,7 +69,7 @@ def dumpcan():
 				if msg == ("00 02"): #Stop Player if power OFF
                                         xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Player.Stop","params":{"playerid":1},"id":1}')
 			if canid == ("218"):
-				if msg == ("00 02"): #Stop Player if key disable
+				if msg == ("02"): #Stop Player if key disable
                                         xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Player.Stop","params":{"playerid":1},"id":1}')
 
 dumpcan()
