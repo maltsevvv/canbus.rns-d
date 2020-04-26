@@ -16,6 +16,10 @@ global var
 var=1
 #
 def dumpcan():
+    bus = can.interface.Bus()
+    msg = can.Message(arbitration_id=0x464, data=[0xa3, 0x00], extended_id=False)
+    bus.send(msg)
+    
     global var
     for message in Bus(can_interface):
         if var==1:
@@ -1837,44 +1841,18 @@ def dumpcan():
                     bus = can.interface.Bus()
                     msg = can.Message(arbitration_id=0x264, data=[0xB0], extended_id=False)
                     bus.send(msg)
-            if canid == ("35e"): #POWER OFF
-                if msg == ("00 01 12 a0"):  #radio
-                    os.system("sudo reboot")
-                if msg == ("00 01 12 38"): # cd-changer
-                    os.system("sudo reboot")
-                if msg == ("00 01 12 2c"): #tvtuner
-                    os.system("sudo reboot")
-            if canid == ("218"): #key disable
-                if msg == ("10 01 02"):
-                    os.system("sudo reboot")
-                if msg == ("11 01 02"):
-                    os.system("sudo reboot")
-                if msg == ("12 01 02"):
-                    os.system("sudo reboot")
-                if msg == ("13 01 02"):
-                    os.system("sudo reboot")
-                if msg == ("14 01 02"):
-                    os.system("sudo reboot")
-                if msg == ("15 01 02"):
-                    os.system("sudo reboot")
-                if msg == ("16 01 02"):
-                    os.system("sudo reboot")
-                if msg == ("17 01 02"):
-                    os.system("sudo reboot")
-                if msg == ("18 01 02"):
-                    os.system("sudo reboot")
-                if msg == ("19 01 02"):
-                    os.system("sudo reboot")
-                if msg == ("1a 01 02"):
-                    os.system("sudo reboot")
-                if msg == ("1b 01 02"):
-                    os.system("sudo reboot")
-                if msg == ("1c 01 02"):
-                    os.system("sudo reboot")
-                if msg == ("1d 01 02"):
-                    os.system("sudo reboot")
-                if msg == ("1e 01 02"):
-                    os.system("sudo reboot")
-                if msg == ("1f 01 02"):
-                    os.system("sudo reboot")
+#### Aktivate tv-tuner if lost connect #############
+            if canid == ("35e"):
+                if msg == ("00 01 12 a0"): #radio
+                    bus = can.interface.Bus()
+                    msg = can.Message(arbitration_id=0x264, data=[0xa0, 0x01, 0x00], extended_id=False)
+                    bus.send(msg)
+                if msg == ("00 01 12 38"): #cd-changer
+                    bus = can.interface.Bus()
+                    msg = can.Message(arbitration_id=0x264, data=[0xa0, 0x01, 0x00], extended_id=False)
+                    bus.send(msg)
+                if msg == ("00 01 12 2c"): #tv-tuner
+                    bus = can.interface.Bus()
+                    msg = can.Message(arbitration_id=0x264, data=[0xa0, 0x01, 0x00], extended_id=False)
+                    bus.send(msg)
 dumpcan()
