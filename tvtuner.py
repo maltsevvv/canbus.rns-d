@@ -1844,7 +1844,7 @@ def dumpcan():
                     os.system("sudo reboot")
                 if msg == ("00 01 12 2c"): #tvtuner
                     os.system("sudo reboot")
-             if canid == ("218"): #key disable
+            if canid == ("218"): #key disable
                 if msg == ("10 01 02"):
                     os.system("sudo reboot")
                 if msg == ("11 01 02"):
