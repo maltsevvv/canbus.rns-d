@@ -16,10 +16,6 @@ global var
 var=1
 #
 def dumpcan():
-    bus = can.interface.Bus()
-    msg = can.Message(arbitration_id=0x464, data=[0xa3, 0x00], extended_id=False)
-    bus.send(msg)
-    
     global var
     for message in Bus(can_interface):
         if var==1:
