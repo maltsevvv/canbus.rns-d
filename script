@@ -1,0 +1,146 @@
+#!/bin/bash
+
+NRM="\e[0m"
+RED="\e[1;41m"
+
+# Логирование,
+# Install: Kodi, Skin RNS-D, python-can (Can Bus)
+# Редактируем: Manifest, MCP2515, PCM5102, HDMI to VGA
+
+# Логирование системы откючено
+echo -e ${RED}'Логирование системы откючено'${NRM}
+sudo sed -i 's/module(load="imuxsock")/#module(load="imuxsock")/' /etc/rsyslog.conf
+sudo sed -i 's/module(load="imklog")/#module(load="imklog")/' /etc/rsyslog.conf
+##################################
+
+# Обновление пакетов
+echo -e ${RED}'Обновление пакетов'${NRM}
+sudo apt update
+##################################
+
+# Установка KODI
+echo -e ${RED}'Установка KODI'${NRM}
+sudo apt install -y kodi
+sudo usermod -a -G audio,video,input,dialout,plugdev,tty pi
+
+sudo tee -a /etc/udev/rules.d/99-input.rules <<EOF
+SUBSYSTEM==input, GROUP=input, MODE=0660
+KERNEL==tty[0-9]*, GROUP=tty, MODE=0660
+EOF
+
+#
+sudo tee -a /etc/udev/rules.d/10-permissions.rules <<EOF
+#input
+KERNEL=="mouse*|mice|event*", MODE="0660", GROUP="input"
+KERNEL=="ts[0-9]*|uinput", MODE="0660", GROUP="input"
+KERNEL==js[0-9]*, MODE=0660, GROUP=input
+#tty
+KERNEL==tty[0-9]*, MODE=0666
+#vchiq
+SUBSYSTEM==vchiq, GROUP=video, MODE=0660
+EOF
+
+# Создаем сервис для автозапуска Kodi
+sudo tee -a /etc/systemd/system/kodi.service <<EOF
+[Unit]
+Description=Kodi Media Center
+[Service]
+User=pi
+Group=pi
+Type=simple
+ExecStart=/usr/bin/kodi-standalone
+Restart=always
+RestartSec=15
+[Install]
+WantedBy=multi-user.target
+EOF
+
+#sudo systemctl enable kodi.service
+#sudo systemctl start kodi.service
+
+# Добавляем системые кнопки, в Kodi
+sudo apt install -y policykit-1
+sudo tee -a /etc/polkit-1/localauthority/50-local.d/50-kodi.pkla <<EOF
+[Actions for kodi user]
+Identity=unix-group:*
+Action=org.freedesktop.upower.;org.freedesktop.udisks.;org.freedesktop.login1*
+ResultActive=yes
+ResultAny=yes
+ResultInactive=no
+EOF
+##################################
+
+
+# Копирование skin.rns-d
+echo -e ${RED}'Копирование skin.rns-d в /usr/share/kodi/addons/'${NRM}
+sudo unzip /boot/skin.rns-d.zip -d /usr/share/kodi/addons/
+##################################
+
+
+# Редактируем Manifest
+echo -e ${RED}'Редактируем Manifest в /usr/share/kodi/system/addon-manifest.xml'${NRM}
+sudo sed -i 's/skin.estouchy/skin.rns-d/' /usr/share/kodi/system/addon-manifest.xml
+sudo sed -i 's/<addon>screensaver.xbmc.builtin.black<\/addon>/<addon optional="false">screensaver.xbmc.builtin.black<\/addon>/' /usr/share/kodi/system/addon-manifest.xml
+sudo sed -i 's/<addon>screensaver.xbmc.builtin.dim<\/addon>/<addon optional="false">screensaver.xbmc.builtin.dim<\/addon>/' /usr/share/kodi/system/addon-manifest.xml
+##################################
+
+
+# Enable MCP2515 Can Bus /boot/config.txt
+echo -e ${RED}'Enable MCP2515 Can Bus /boot/config.txt'${NRM}
+sudo tee -a /boot/config.txt <<EOF
+# Enable MCP2515 CanBus
+dtparam=spi=on
+dtoverlay=mcp2515-can0,oscillator=8000000,interrupt=25
+dtoverlay=spi-bcm2835-overlay
+EOF
+
+# Enable Audio PCM5201 /boot/config.txt
+echo -e ${RED}'Enable Audio PCM5201 /boot/config.txt'${NRM}
+sudo sed -i 's/dtparam=audio=on/#dtparam=audio=on/' /boot/config.txt
+sudo tee -a /boot/config.txt <<EOF
+# Enable PCM5102
+dtoverlay=hifiberry-dac
+EOF
+
+# Enable gpu_mem in /boot/config.txt
+echo -e ${RED}'Enable gpu_mem in /boot/config.txt'${NRM}
+sudo tee -a /boot/config.txt <<EOF
+# Enable video core & MPEG
+gpu_mem=128
+start_x=1
+EOF
+##################################
+
+
+# Установливаем python-pip, can-utils, python-can
+echo -e ${RED}'Установливаем python-pip, can-utils, python-can'${NRM}
+sudo apt install -y python-pip
+sudo apt install -y can-utils
+sudo pip install python-can
+
+sudo tee -a /etc/systemd/system/can.service <<EOF
+[Unit]
+Description=CanBus start
+[Service]
+Type=simple
+ExecStart=/usr/bin/python /usr/share/kodi/addons/skin.rns-d/4dO919146b.pyo
+Restart=always
+[Install]
+WantedBy=multi-user.target
+EOF
+
+#sudo systemctl enable can.service
+#sudo systemctl start can.service
+##################################
+
+
+# Запускаем service: can.service, kodi.service' 
+echo -e ${RED}'Запускаем can.service'${NRM}
+sudo systemctl enable can.service
+sudo systemctl start can.service
+
+echo -e ${RED}'Запускаем kodi.service'${NRM}
+sudo systemctl enable kodi.service
+sudo systemctl start kodi.service
+
+sudo reboot
